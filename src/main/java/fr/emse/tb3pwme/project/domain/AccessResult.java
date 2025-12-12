@@ -1,0 +1,10 @@
+package fr.emse.tb3pwme.project.domain;
+public enum AccessResult {
+    GRANTED,
+    DENIED_INVALID_BADGE,
+    DENIED_INACTIVE_USER,
+    DENIED_NO_PERMISSION,
+    DENIED_TIME_RESTRICTION,
+    DENIED_EXPIRED_BADGE,
+    DENIED_INACTIVE_DOOR
+}

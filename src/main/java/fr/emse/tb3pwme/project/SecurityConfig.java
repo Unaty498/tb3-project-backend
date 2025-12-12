@@ -17,18 +17,18 @@ import org.springframework.security.web.SecurityFilterChain;
 class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(Customizer.withDefaults())
+        http.csrf(csrf -> csrf.ignoringRequestMatchers("/api/locks/**"))
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(oauth2 ->
                         oauth2.jwt(Customizer.withDefaults())
                 )
                 .authorizeHttpRequests(authz ->
-                        authz.
-                            requestMatchers("/api/**").authenticated());
+                        authz
+                            .requestMatchers("/api/locks/**").permitAll()
+                            .requestMatchers("/api/**").authenticated());
 
         return http.build();
     }
-
 
 }
