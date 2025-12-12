@@ -1,44 +1,8 @@
-# Lab 2: Delivery App
-
-Welcome to this second lab.
-
-The code you will be working on is the backend of an application that allows customers and employees of a delivery service to view and modify deliveries.
-The objective of the lab is to:
-
-* Improve your sense of application design
-* Use Spring Security to implement secure the application
-* Discover some new tools (@Embeddable, ArchUnit)
-
-## Develop the Web and Application layers
-
-You must implement the `web.fr.emse.tb3pwme.project.DeliveryController` and `application.fr.emse.tb3pwme.project.DeliveryService` classes.
-These belong to specific layers.
-
-`DeliveryController` is a REST controller.
-Its responsibility is to validate the data received, convert this data into domain objects, and delegate the application of business rules and side effects to the _Application_ layer.
-
-`DeliveryService` belongs to the _Application_ layer.
-Its responsibility is to control the domain objects that implement the business logic and to delegate database updates to the _Persistence_ layer.
-
-The `web.fr.emse.tb3pwme.project.DeliveryControllerUnsecureIntegrationTest` class describes the expected behavior of the controller.
-
-The `fr.emse.tb3pwme.project.ArchUnitTest` class implements an automated test that ensures that responsibilities are respected.
-Run it regularly to verify that you are complying with the constraints of the desired architecture.
-
-## Use Spring Security
-
-You must secure access to the APIs.
-All API calls must be authenticated with a JWT.
-In addition, the `DeliveryController.complete` operation requires the `ROLE_POSTMAN` role.
-Add the appropriate dependencies to the `build.gradle.kts` file.
-Add the `DeliveryControllerIntegrationTest` test class, the source code for which is shown below.
-
-```java
-package fr.emse.tb3pwme.labs.delivery.web;
+package fr.emse.tb3pwme.project.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import domain.fr.emse.tb3pwme.project.Status;
-import persistence.fr.emse.tb3pwme.project.DeliveryRepository;
+import fr.emse.tb3pwme.project.domain.Status;
+import fr.emse.tb3pwme.project.persistence.DeliveryRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -172,26 +136,3 @@ class DeliveryControllerIntegrationTest {
     }
 
 }
-```
-
-Once Spring Security has been added to the project, you will also need to reactivate the security filter chain in the `DeliveryControllerUnsecureIntegrationTest` test class.
-
-You will implement the security rules in the `fr.emse.tb3pwme.project.SecurityConfig` class.
-
-If you want to launch the application, you will need to start an identity provider.
-The application has been configured to work with Keycloak.
-The `start-keycloak.sh` script allows you to start Keycloak on your workstation (on Linux).
-On Windows, run the line contained in the `start-keycloak.sh` file in a command prompt.
-Regardless of the OS, Docker must be installed beforehand for this to work.
-Once Keycloak is started, you can import the realm `delivery` using the `realm-export.json` file.
-
-However, it is much easier to work with automated tests.
-
-## New tools
-
-1. What do the `@ActiveProfiles` and `@Profile` annotations do?
-2. What do the `@Embeddable` and `@Embedded` annotations do?
-
-## ArchUnit
-
-In the `ArchUnitTest` class, add a rule checking that all classes whose names end with `*Representation` must be in the web package.
