@@ -11,6 +11,7 @@ public class EntityMapper {
     public User toDomain(UserEntity entity) {
         return new User(
             entity.getId(),
+            entity.getKeycloakId(),
             entity.getEmail(),
             entity.getFirstName(),
             entity.getLastName(),
@@ -25,6 +26,7 @@ public class EntityMapper {
     public UserEntity toEntity(User domain) {
         return new UserEntity(
             domain.getId(),
+            domain.getKeycloakId(),
             domain.getEmail(),
             domain.getFirstName(),
             domain.getLastName(),

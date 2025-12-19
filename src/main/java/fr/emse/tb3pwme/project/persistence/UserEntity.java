@@ -10,6 +10,9 @@ public class UserEntity {
     @Id
     private UUID id;
 
+    @Column(name = "keycloak_id", nullable = false)
+    private String keycloakId;
+
     @Column(nullable = false, unique = true)
     private String email;
 
@@ -37,9 +40,10 @@ public class UserEntity {
     public UserEntity() {
     }
 
-    public UserEntity(UUID id, String email, String firstName, String lastName, String phone,
+    public UserEntity(UUID id, String keycloakId, String email, String firstName, String lastName, String phone,
                       UserRole role, boolean active, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
+        this.keycloakId = keycloakId;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -120,5 +124,13 @@ public class UserEntity {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public String getKeycloakId() {
+        return keycloakId;
+    }
+
+    public void setKeycloakId(String keycloakId) {
+        this.keycloakId = keycloakId;
     }
 }

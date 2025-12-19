@@ -21,7 +21,7 @@ public class LockController {
 
     /**
      * Endpoint public pour vérifier l'accès
-     * Appelé par les serrures IoT pour déterminer si une porte doit s'ouvrir
+     * Appelé par les serrures pour déterminer si une porte doit s'ouvrir
      */
     @PostMapping("/verify-access")
     public ResponseEntity<RepresentationMapper.VerifyAccessResponse> verifyAccess(

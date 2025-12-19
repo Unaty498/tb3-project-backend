@@ -39,19 +39,6 @@ public class UserController {
             .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<RepresentationMapper.UserRepresentation> createUser(
-            @RequestBody RepresentationMapper.CreateUserRequest request) {
-        User user = userService.createUser(
-            request.email(),
-            request.firstName(),
-            request.lastName(),
-            request.phone(),
-            request.role()
-        );
-        return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toRepresentation(user));
-    }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN') or @userSecurity.isCurrentUser(#id)")

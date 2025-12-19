@@ -22,13 +22,17 @@ public class UserService {
         this.mapper = mapper;
     }
 
-    public User createUser(String email, String firstName, String lastName, String phone, UserRole role) {
-        User user = User.newUser(email, firstName, lastName, phone, role);
+    public User createUser(String keycloakId, String email, String firstName, String lastName, String phone, UserRole role) {
+        User user = User.newUser(keycloakId, email, firstName, lastName, phone, role);
         return mapper.toDomain(userRepository.save(mapper.toEntity(user)));
     }
 
     public Optional<User> findById(UUID id) {
         return userRepository.findById(id).map(mapper::toDomain);
+    }
+
+    public Optional<User> findByKeycloakId(String keycloakId) {
+        return userRepository.findByKeycloakId(keycloakId).map(mapper::toDomain);
     }
 
     public Optional<User> findByEmail(String email) {

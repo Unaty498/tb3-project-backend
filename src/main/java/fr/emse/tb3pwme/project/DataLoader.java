@@ -45,6 +45,7 @@ public class DataLoader implements CommandLineRunner {
 
         // 1. Créer des utilisateurs
         User admin = userService.createUser(
+                "",
             "admin@example.com",
             "Admin",
             "System",
@@ -54,6 +55,7 @@ public class DataLoader implements CommandLineRunner {
         logger.info("✓ Admin créé: {}", admin.getEmail());
 
         User user1 = userService.createUser(
+                "",
             "alice.dupont@example.com",
             "Alice",
             "Dupont",
@@ -63,6 +65,7 @@ public class DataLoader implements CommandLineRunner {
         logger.info("✓ Utilisateur créé: {}", user1.getEmail());
 
         User user2 = userService.createUser(
+                "",
             "bob.martin@example.com",
             "Bob",
             "Martin",
@@ -72,11 +75,12 @@ public class DataLoader implements CommandLineRunner {
         logger.info("✓ Utilisateur créé: {}", user2.getEmail());
 
         User visitor = userService.createUser(
+                "",
             "visitor@example.com",
             "Jane",
             "Visitor",
             "+33645678901",
-            UserRole.VISITOR
+            UserRole.USER
         );
         logger.info("✓ Visiteur créé: {}", visitor.getEmail());
 
