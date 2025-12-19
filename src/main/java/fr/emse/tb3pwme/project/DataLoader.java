@@ -20,7 +20,7 @@ import java.util.UUID;
  * Actif uniquement en profil 'dev'
  */
 @Component
-@Profile("dev")
+//@Profile("dev")
 public class DataLoader implements CommandLineRunner {
     private static final Logger logger = LoggerFactory.getLogger(DataLoader.class);
 
