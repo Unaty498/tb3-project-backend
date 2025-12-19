@@ -25,7 +25,7 @@ public class JwtRoleConverter implements Converter<Jwt, Collection<GrantedAuthor
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         for (Object r : roles) {
             if (r instanceof String) {
-                authorities.add(new SimpleGrantedAuthority(((String) r).toUpperCase()));
+                authorities.add(new SimpleGrantedAuthority("ROLE_" + ((String) r).toUpperCase()));
             }
         }
         return authorities;

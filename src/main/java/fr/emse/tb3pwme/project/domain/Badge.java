@@ -12,10 +12,11 @@ public class Badge {
     private final LocalDateTime expiryDate;
     private final LocalDateTime createdAt;
     private final LocalDateTime updatedAt;
+    private final boolean physicallyMapped;
 
     public Badge(UUID id, String badgeNumber, BadgeType type, UUID userId,
                  boolean active, LocalDateTime expiryDate,
-                 LocalDateTime createdAt, LocalDateTime updatedAt) {
+                 LocalDateTime createdAt, LocalDateTime updatedAt, boolean physicallyMapped) {
         this.id = id;
         this.badgeNumber = badgeNumber;
         this.type = type;
@@ -24,29 +25,34 @@ public class Badge {
         this.expiryDate = expiryDate;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.physicallyMapped = physicallyMapped;
     }
 
     public static Badge newBadge(String badgeNumber, BadgeType type, UUID userId, LocalDateTime expiryDate) {
         LocalDateTime now = LocalDateTime.now();
-        return new Badge(UUID.randomUUID(), badgeNumber, type, userId, true, expiryDate, now, now);
+        return new Badge(UUID.randomUUID(), badgeNumber, type, userId, true, expiryDate, now, now, false);
     }
 
     public Badge deactivate() {
         if (!active) {
             throw new IllegalStateException("Badge is already deactivated.");
         }
-        return new Badge(id, badgeNumber, type, userId, false, expiryDate, createdAt, LocalDateTime.now());
+        return new Badge(id, badgeNumber, type, userId, false, expiryDate, createdAt, LocalDateTime.now(), physicallyMapped);
     }
 
     public Badge activate() {
         if (active) {
             throw new IllegalStateException("Badge is already active.");
         }
-        return new Badge(id, badgeNumber, type, userId, true, expiryDate, createdAt, LocalDateTime.now());
+        return new Badge(id, badgeNumber, type, userId, true, expiryDate, createdAt, LocalDateTime.now(), physicallyMapped);
     }
 
     public Badge updateExpiry(LocalDateTime newExpiryDate) {
-        return new Badge(id, badgeNumber, type, userId, active, newExpiryDate, createdAt, LocalDateTime.now());
+        return new Badge(id, badgeNumber, type, userId, active, newExpiryDate, createdAt, LocalDateTime.now(), physicallyMapped);
+    }
+
+    public Badge updatePhysicalMapping(boolean physicallyMapped) {
+        return new Badge(id, badgeNumber, type, userId, active, expiryDate, createdAt, LocalDateTime.now(), physicallyMapped);
     }
 
     public boolean isExpired() {
@@ -87,5 +93,9 @@ public class Badge {
 
     public LocalDateTime getUpdatedAt() {
         return updatedAt;
+    }
+
+    public boolean isPhysicallyMapped() {
+        return physicallyMapped;
     }
 }

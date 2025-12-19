@@ -57,6 +57,14 @@ public class BadgeService {
         return mapper.toDomain(badgeRepository.save(mapper.toEntity(updatedBadge)));
     }
 
+    public Badge updatePhysicalMapping(UUID id, boolean physicallyMapped) {
+        Badge badge = findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Badge not found"));
+
+        Badge updatedBadge = badge.updatePhysicalMapping(physicallyMapped);
+        return mapper.toDomain(badgeRepository.save(mapper.toEntity(updatedBadge)));
+    }
+
     public Badge deactivateBadge(UUID id) {
         Badge badge = findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Badge not found"));

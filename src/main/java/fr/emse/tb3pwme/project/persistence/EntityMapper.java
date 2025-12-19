@@ -48,7 +48,8 @@ public class EntityMapper {
             entity.isActive(),
             entity.getExpiryDate(),
             entity.getCreatedAt(),
-            entity.getUpdatedAt()
+            entity.getUpdatedAt(),
+            entity.isPhysicallyMapped()
         );
     }
 

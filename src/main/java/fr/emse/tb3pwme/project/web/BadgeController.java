@@ -73,6 +73,19 @@ public class BadgeController {
         }
     }
 
+    @PutMapping("/{id}/mapped")
+    @PreAuthorize("hasRole('ADMIN') or @badgeSecurity.isBadgeOwner(#id)")
+    public ResponseEntity<RepresentationMapper.BadgeRepresentation> updateBadgeMapped(
+            @PathVariable UUID id,
+            @RequestBody RepresentationMapper.UpdateBadgeMappingRequest request) {
+        try {
+            Badge badge = badgeService.updatePhysicalMapping(id, request.physicallyMapped());
+            return ResponseEntity.ok(mapper.toRepresentation(badge));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping("/{id}/deactivate")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<RepresentationMapper.BadgeRepresentation> deactivateBadge(@PathVariable UUID id) {

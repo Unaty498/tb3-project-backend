@@ -32,6 +32,9 @@ public class BadgeEntity {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
+    @Column(nullable = false)
+    private boolean physicallyMapped;
+
     public BadgeEntity() {
     }
 
@@ -46,6 +49,7 @@ public class BadgeEntity {
         this.expiryDate = expiryDate;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.physicallyMapped = false;
     }
 
     public UUID getId() {
@@ -110,6 +114,14 @@ public class BadgeEntity {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public boolean isPhysicallyMapped() {
+        return physicallyMapped;
+    }
+
+    public void setPhysicallyMapped(boolean physicallyMapped) {
+        this.physicallyMapped = physicallyMapped;
     }
 }
 

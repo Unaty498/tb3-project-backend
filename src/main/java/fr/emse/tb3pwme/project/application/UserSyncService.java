@@ -76,7 +76,7 @@ public class UserSyncService {
         // Exemple simple : mapper un rôle Keycloak à un rôle de l'application
         // Adapter selon votre configuration Keycloak
         List<String> roles = jwt.getClaimAsStringList("realm_access.roles");
-        if (roles != null && !roles.isEmpty() && roles.contains("ROLE_ADMIN")) {
+        if (roles != null && !roles.isEmpty() && roles.contains("ADMIN")) {
             return UserRole.ADMIN;
         }
         return UserRole.USER; // Rôle par défaut

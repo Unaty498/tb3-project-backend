@@ -77,6 +77,10 @@ public class RepresentationMapper {
         LocalDateTime expiryDate
     ) {}
 
+    public record UpdateBadgeMappingRequest(
+        boolean physicallyMapped
+    ) {}
+
     public BadgeRepresentation toRepresentation(Badge badge) {
         return new BadgeRepresentation(
             badge.getId(),
