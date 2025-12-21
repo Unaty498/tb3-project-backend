@@ -2,7 +2,9 @@
 package fr.emse.tb3pwme.project;
 
 import fr.emse.tb3pwme.project.security.AddCorsHeaderFilter;
+import fr.emse.tb3pwme.project.security.DebugJwtRoleConverter;
 import fr.emse.tb3pwme.project.security.JwtRoleConverter;
+import fr.emse.tb3pwme.project.security.RequestAuthLoggingFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -31,7 +33,8 @@ class SecurityConfig {
                 .authorizeHttpRequests(authz ->
                         authz
                                 .requestMatchers("/api/locks/**").permitAll()
-                                .requestMatchers("/api/**").authenticated());
+                                .requestMatchers("/api/**").authenticated())
+                /*.addFilterAfter(new RequestAuthLoggingFilter(), UsernamePasswordAuthenticationFilter.class)*/;
 
         return http.build();
     }

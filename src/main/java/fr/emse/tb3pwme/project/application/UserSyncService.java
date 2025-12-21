@@ -1,5 +1,7 @@
 package fr.emse.tb3pwme.project.application;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import fr.emse.tb3pwme.project.domain.UserRole;
 import fr.emse.tb3pwme.project.persistence.UserEntity;
 import fr.emse.tb3pwme.project.persistence.UserRepository;
@@ -14,6 +16,8 @@ import java.util.Map;
 
 @Service
 public class UserSyncService {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserSyncService.class);
 
     private final UserRepository userRepository;
 
@@ -50,7 +54,7 @@ public class UserSyncService {
 
         // Définir un rôle par défaut (à adapter selon votre logique métier)
         // Vous pouvez aussi extraire les rôles du JWT si configuré dans Keycloak
-        user.setRole(UserRole.USER);
+        user.setRole(getRoleFromJwt(jwt));
 
         return updateUser(user, jwt);
     }
@@ -75,7 +79,18 @@ public class UserSyncService {
     private UserRole getRoleFromJwt(Jwt jwt) {
         // Exemple simple : mapper un rôle Keycloak à un rôle de l'application
         // Adapter selon votre configuration Keycloak
-        List<String> roles = jwt.getClaimAsStringList("realm_access.roles");
+        Map<String, Object> realmAccess = jwt.getClaim("realm_access");
+        List<String> roles = null;
+        if (realmAccess != null && realmAccess.containsKey("roles")) {
+            try {
+                roles = (List<String>) realmAccess.get("roles");
+            } catch (ClassCastException e) {
+                logger.warn("Could not cast realm_access.roles to List<String>", e);
+            }
+        }
+
+        logger.debug("User roles from JWT: {}", roles);
+
         if (roles != null && !roles.isEmpty() && roles.contains("ADMIN")) {
             return UserRole.ADMIN;
         }
