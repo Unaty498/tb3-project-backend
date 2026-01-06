@@ -51,11 +51,12 @@ public class BadgeController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<RepresentationMapper.BadgeRepresentation> createBadge(
             @RequestBody RepresentationMapper.CreateBadgeRequest request) {
+
         Badge badge = badgeService.createBadge(
             request.badgeNumber(),
             request.type(),
             request.userId(),
-            request.expiryDate()
+            request.expiryDate().atStartOfDay()
         );
         return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toRepresentation(badge));
     }
@@ -66,7 +67,7 @@ public class BadgeController {
             @PathVariable UUID id,
             @RequestBody RepresentationMapper.UpdateBadgeExpiryRequest request) {
         try {
-            Badge badge = badgeService.updateExpiry(id, request.expiryDate());
+            Badge badge = badgeService.updateExpiry(id, request.expiryDate().atStartOfDay());
             return ResponseEntity.ok(mapper.toRepresentation(badge));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.notFound().build();

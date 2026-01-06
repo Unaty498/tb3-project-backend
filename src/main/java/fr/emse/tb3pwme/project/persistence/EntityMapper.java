@@ -62,7 +62,8 @@ public class EntityMapper {
             domain.isActive(),
             domain.getExpiryDate(),
             domain.getCreatedAt(),
-            domain.getUpdatedAt()
+            domain.getUpdatedAt(),
+            domain.isPhysicallyMapped()
         );
     }
 

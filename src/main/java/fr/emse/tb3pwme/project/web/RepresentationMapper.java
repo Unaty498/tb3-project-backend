@@ -4,6 +4,7 @@ import fr.emse.tb3pwme.project.domain.*;
 import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
@@ -63,18 +64,19 @@ public class RepresentationMapper {
         boolean active,
         LocalDateTime expiryDate,
         LocalDateTime createdAt,
-        LocalDateTime updatedAt
+        LocalDateTime updatedAt,
+        boolean physicallyMapped
     ) {}
 
     public record CreateBadgeRequest(
         String badgeNumber,
         BadgeType type,
         UUID userId,
-        LocalDateTime expiryDate
+        LocalDate expiryDate
     ) {}
 
     public record UpdateBadgeExpiryRequest(
-        LocalDateTime expiryDate
+        LocalDate expiryDate
     ) {}
 
     public record UpdateBadgeMappingRequest(
@@ -90,7 +92,8 @@ public class RepresentationMapper {
             badge.isActive(),
             badge.getExpiryDate(),
             badge.getCreatedAt(),
-            badge.getUpdatedAt()
+            badge.getUpdatedAt(),
+            badge.isPhysicallyMapped()
         );
     }
 

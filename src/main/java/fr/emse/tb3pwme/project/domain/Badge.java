@@ -51,8 +51,8 @@ public class Badge {
         return new Badge(id, badgeNumber, type, userId, active, newExpiryDate, createdAt, LocalDateTime.now(), physicallyMapped);
     }
 
-    public Badge updatePhysicalMapping(boolean physicallyMapped) {
-        return new Badge(id, badgeNumber, type, userId, active, expiryDate, createdAt, LocalDateTime.now(), physicallyMapped);
+    public Badge updatePhysicalMapping(boolean newPhysicallyMapped) {
+        return new Badge(id, badgeNumber, type, userId, active, expiryDate, createdAt, LocalDateTime.now(), newPhysicallyMapped);
     }
 
     public boolean isExpired() {

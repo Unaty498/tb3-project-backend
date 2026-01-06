@@ -40,7 +40,7 @@ public class BadgeEntity {
 
     public BadgeEntity(UUID id, String badgeNumber, BadgeType type, UUID userId,
                        boolean active, LocalDateTime expiryDate,
-                       LocalDateTime createdAt, LocalDateTime updatedAt) {
+                       LocalDateTime createdAt, LocalDateTime updatedAt, boolean physicallyMapped) {
         this.id = id;
         this.badgeNumber = badgeNumber;
         this.type = type;
@@ -49,7 +49,7 @@ public class BadgeEntity {
         this.expiryDate = expiryDate;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.physicallyMapped = false;
+        this.physicallyMapped = physicallyMapped;
     }
 
     public UUID getId() {
