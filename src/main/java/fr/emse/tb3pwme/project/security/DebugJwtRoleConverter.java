@@ -21,7 +21,6 @@ public class DebugJwtRoleConverter implements Converter<Jwt, Collection<GrantedA
 
         Set<String> roles = new HashSet<>();
 
-        // Key conventions: Keycloak -> realm_access.roles, or "roles", or "authorities"
         Object realmAccess = jwt.getClaim("realm_access");
         if (realmAccess instanceof Map) {
             Object r = ((Map<?, ?>) realmAccess).get("roles");

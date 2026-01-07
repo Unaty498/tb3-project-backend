@@ -51,9 +51,6 @@ public class UserSyncService {
         user.setKeycloakId(keycloakId);
         user.setCreatedAt(LocalDateTime.now());
         user.setActive(true); // Actif par défaut
-
-        // Définir un rôle par défaut (à adapter selon votre logique métier)
-        // Vous pouvez aussi extraire les rôles du JWT si configuré dans Keycloak
         user.setRole(getRoleFromJwt(jwt));
 
         return updateUser(user, jwt);
@@ -69,7 +66,6 @@ public class UserSyncService {
             user.setPhone(jwt.getClaimAsString("phone_number"));
         }
 
-        // Mapper les rôles Keycloak aux rôles de l'application si nécessaire
         user.setRole(getRoleFromJwt(jwt));
 
         user.setUpdatedAt(LocalDateTime.now());
@@ -77,8 +73,6 @@ public class UserSyncService {
     }
 
     private UserRole getRoleFromJwt(Jwt jwt) {
-        // Exemple simple : mapper un rôle Keycloak à un rôle de l'application
-        // Adapter selon votre configuration Keycloak
         Map<String, Object> realmAccess = jwt.getClaim("realm_access");
         List<String> roles = null;
         if (realmAccess != null && realmAccess.containsKey("roles")) {

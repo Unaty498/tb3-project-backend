@@ -1,4 +1,3 @@
-// java
 package fr.emse.tb3pwme.project;
 
 import fr.emse.tb3pwme.project.security.AddCorsHeaderFilter;
