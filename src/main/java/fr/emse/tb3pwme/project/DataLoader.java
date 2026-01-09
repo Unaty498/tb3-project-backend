@@ -41,6 +41,10 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+        if (!userService.findAll().isEmpty()) {
+            logger.info("Données déjà présentes en base. Saut du chargement des données de démonstration.");
+            return;
+        }
 
         // 1. Créer des utilisateurs
         User admin = userService.createUser(

@@ -981,7 +981,7 @@
       "bearerOnly": false,
       "consentRequired": false,
       "standardFlowEnabled": true,
-      "implicitFlowEnabled": true,
+      "implicitFlowEnabled": false,
       "directAccessGrantsEnabled": true,
       "serviceAccountsEnabled": false,
       "publicClient": true,
